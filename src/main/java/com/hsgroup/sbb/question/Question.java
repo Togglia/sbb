@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.hsgroup.sbb.answer.Answer;
 
+import jakarta.persistence.ManyToOne;
+import com.hsgroup.sbb.user.SiteUser;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,11 +21,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity //
+@Entity
 public class Question {
-    @Id // 기본키로 지정
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // 데이터를 저장할 때 해당 속성에 값을 따로 세팅하지 않아도 자동씩 1증가 저장
     private Integer id;
 
     @Column(length = 200)
@@ -35,4 +37,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 }
